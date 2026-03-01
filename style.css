@@ -428,4 +428,91 @@ body {
 
 .popup button:hover {
   background: #dc2626;
+
+}
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 900px) {
+
+  /* ===== LOGIN ===== */
+  .login-container {
+    width: 90%;
+    padding: 35px;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px;
+  }
+
+  .sidebar h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .sidebar a {
+    margin: 8px;
+    font-size: 14px;
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  /* ===== CARDS ===== */
+  .cards {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  /* ===== GRÁFICOS ===== */
+  .chart-large canvas {
+    height: 260px !important;
+  }
+
+  /* ===== FIREWALL ===== */
+  .firewall {
+    flex-direction: column;
+  }
+
+  .allowed,
+  .blocked {
+    padding: 25px;
+  }
+
+  /* ===== OVERVIEW GRID ===== */
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= MOBILE PEQUENO ================= */
+@media (max-width: 480px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  .sidebar a {
+    font-size: 13px;
+  }
+
+  .login-box h1 {
+    font-size: 22px;
+  }
+
+  .chart-large canvas {
+    height: 220px !important;
+  }
 }
