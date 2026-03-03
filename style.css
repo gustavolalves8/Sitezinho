@@ -414,4 +414,12 @@ body {
 /* Tooltip mais visível */
 .chart-large canvas {
   cursor: crosshair;
+
+}
+/* ===== SVG ERRO LOGIN ===== */
+.error-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  display: block;
 }
