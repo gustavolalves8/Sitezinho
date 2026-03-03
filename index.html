@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>NetVision Pro - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-body">
+
+<div class="login-container">
+  <img src="olho.png" class="login-logo" alt="NetVision Pro">
+
+  <h1>NetVision Pro</h1>
+  <p class="subtitle">Monitoramento e Segurança de Redes</p>
+
+  <form class="login-form" onsubmit="login(event)">
+    <div class="input-group">
+      <label>Usuário</label>
+      <input type="text" id="user">
+    </div>
+
+    <div class="input-group">
+      <label>Senha</label>
+      <input type="password" id="pass">
+    </div>
+
+    <button type="submit">Acessar Sistema</button>
+  </form>
+
+  <p class="demo-info">Demo: <b>admin / 1234</b></p>
+</div>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup">
+    <svg class="error-icon" viewBox="0 0 52 52">
+  <circle cx="26" cy="26" r="24"
+          fill="none"
+          stroke="#ef4444"
+          stroke-width="3"/>
+  
+  <line x1="16" y1="16" x2="36" y2="36"
+        stroke="#ef4444"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <line x1="36" y1="16" x2="16" y2="36"
+        stroke="#ef4444"
+        stroke-width="3"
+        stroke-linecap="round"/>
+</svg>
+    <h3>Falha no login</h3>
+    <p>Usuário ou senha incorretos</p>
+    <button onclick="closePopup()">Fechar</button>
+  </div>
+</div>
+
+<script>
+function login(e){
+  e.preventDefault();
+  const u = user.value;
+  const p = pass.value;
+
+  if(u === "admin" && p === "1234"){
+    location.href = "dashboard.html";
+  } else {
+    popup.classList.add("show");
+  }
+}
+
+function closePopup(){
+  popup.classList.remove("show");
+}
+</script>
+
+<div class="popup-overlay" id="loginError">
+  <div class="popup login-error">
+    
+    <!-- SVG ERRO -->
+    <svg class="error-icon" viewBox="0 0 52 52">
+      <circle cx="26" cy="26" r="24" fill="none" stroke="#ef4444" stroke-width="3"/>
+      <line x1="18" y1="18" x2="34" y2="34" stroke="#ef4444" stroke-width="3"/>
+      <line x1="34" y1="18" x2="18" y2="34" stroke="#ef4444" stroke-width="3"/>
+    </svg>
+
+    <h3>Falha no login</h3>
+    <p>Usuário ou senha incorretos</p>
+
+    <button onclick="closePopup()">Fechar</button>
+  </div>
+</div>
+</body>
+</html>

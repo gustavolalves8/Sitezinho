@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>NetVision Pro - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div style="text-align:center; margin-bottom:20px;">
+  <img src="olho.png" style="width:50px; filter: invert(46%) sepia(93%) saturate(1246%) hue-rotate(168deg);" />
+  <h2>NetVision Pro</h2>
+</div>
+  <a onclick="showSection('overview')">Visão Geral</a>
+  <a onclick="showSection('devices')">Dispositivos</a>
+  <a onclick="showSection('monitoring')">Monitoramento</a>
+  <a onclick="showSection('security')">Segurança</a>
+  <a onclick="showSection('reports')">Relatórios</a>
+  <a onclick="logout()">Sair</a>
+</div>
+
+<div class="main">
+
+<!-- ================= VISÃO GERAL ================= -->
+<section id="overview" class="section active">
+  <h1>Visão Geral</h1>
+
+  <div class="cards">
+    <div class="card">Status<br><span class="online">ONLINE</span></div>
+    <div class="card">Dispositivos<br><span id="devicesCount">48</span></div>
+    <div class="card">Alertas<br><span id="alerts" class="alert-blink">2</span></div>
+    <div class="card">Risco<br><span id="risk" class="risk-medium">MÉDIO</span></div>
+  </div>
+<div class="cards">
+  <div class="card">Firewall<br><span class="online">🟢 Ativo</span></div>
+  <div class="card">IDS / IPS<br><span class="online">🟢 Monitorando</span></div>
+  <div class="card">Servidor DNS<br><span class="risk-medium">🟡 Latência</span></div>
+  <div class="card">Gateway<br><span class="online">🟢 Online</span></div>
+</div>
+
+  <div class="overview-grid">
+    <div class="alerts-panel">
+  <h3>🚨 Alertas de Segurança</h3>
+
+  <ul class="alert-list">
+    <li class="alert-item">
+      <span class="alert-label">DDoS Ativo</span>
+      <span class="alert-count alert-high">3</span>
+    </li>
+
+    <li class="alert-item">
+      <span class="alert-label">Brute Force Monitorado</span>
+      <span class="alert-count alert-medium">2</span>
+    </li>
+
+    <li class="alert-item">
+      <span class="alert-label">Port Scan Detectado</span>
+      <span class="alert-count alert-low">1</span>
+    </li>
+  </ul>
+</div>
+
+    <div class="overview-box">
+      <h3>Eventos Recentes</h3>
+      <div class="log-box" id="logBox"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DISPOSITIVOS ================= -->
+<section id="devices" class="section">
+ <h2 style="margin-top:25px;">Mapa Detalhado de Dispositivos</h2>
+<h3 style="margin-top:25px;">Dispositivos Conectados Recentemente</h3>
+
+<div class="table-wrapper">
+  <table class="devices-table">
+    <thead>
+      <tr>
+        <th>Horário</th>
+        <th>Dispositivo</th>
+        <th>IP</th>
+        <th>Tipo</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="commonDevicesLog"></tbody>
+  </table>
+</div>
+<div class="panel">
+<div class="table-wrapper">
+  <table class="devices-table">
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Sistema</th>
+        <th>Status</th>
+        <th>Tráfego</th>
+        <th>Último Evento</th>
+        <th>Risco</th>
+      </tr>
+    </thead>
+    <tbody id="devicesTable">
+      <tr>
+        <td>192.168.0.10</td>
+        <td>Servidor Principal</td>
+        <td>Servidor</td>
+        <td>Linux</td>
+        <td class="status online">Online</td>
+        <td>320 Mbps</td>
+        <td>Tráfego normal</td>
+        <td>🟢</td>
+      </tr>
+
+      <tr>
+        <td>192.168.0.21</td>
+        <td>Notebook TI</td>
+        <td>Notebook</td>
+        <td>Windows</td>
+        <td class="status online">Online</td>
+        <td>120 Mbps</td>
+        <td>Login recente</td>
+        <td>🟡</td>
+      </tr>
+
+      <tr class="row-alert">
+        <td>192.168.0.45</td>
+        <td>Sensor IoT</td>
+        <td>IoT</td>
+        <td>ESP32</td>
+        <td class="status unstable">Instável</td>
+        <td>40 Mbps</td>
+        <td>Perda de pacotes</td>
+        <td>🔴</td>
+      </tr>
+    </tbody>
+  </table>
+</div> 
+</section>
+
+<!-- ================= MONITORAMENTO ================= -->
+<section id="monitoring" class="section">
+  <h1>Monitoramento de Rede</h1>
+
+  <div class="chart-large">
+    <h3>Tráfego Total</h3>
+    <canvas id="trafficChart"></canvas>
+  </div>
+
+  <div class="chart-large">
+    <h3>Download vs Upload (Mbps)</h3>
+    <canvas id="speedChart"></canvas>
+  </div>
+</section>
+
+<!-- ================= SEGURANÇA ================= -->
+<section id="security" class="section">
+  <h1>Firewall</h1>
+
+  <div class="firewall">
+    <div class="allowed">Conexões Permitidas<br><span id="allowed">1240</span></div>
+    <div class="blocked">Conexões Bloqueadas<br><span id="blocked">87</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><button onclick="action('IP bloqueado')">Bloquear IP</button></div>
+    <div class="card"><button onclick="action('Dispositivo isolado')">Isolar Dispositivo</button></div>
+    <div class="card"><button onclick="action('Serviço reiniciado')">Reiniciar Serviço</button></div>
+  </div>
+</section>
+
+<!-- ================= RELATÓRIOS ================= -->
+<section id="reports" class="section">
+  <h1>Relatórios</h1>
+  <p>Incidentes no período: 12</p>
+  <p>Tráfego médio: 320 Mbps</p>
+  <p>Dispositivo mais ativo: Servidor Principal</p>
+</section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
